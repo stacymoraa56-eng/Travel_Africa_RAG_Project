@@ -1,4 +1,4 @@
-# 🌍 Travel Africa RAG Assistant
+#  Travel Africa RAG Assistant
 
 ## Project Overview
 
@@ -39,24 +39,13 @@ Travel_Africa_RAG/
 │   │
 │   ├── html/
 │   │   ├── base_scraper.py
-│   │   ├── magical_kenya.py
-│   │   └── ktb.py
+│   │   └── magical_kenya.py
 │   │
 │   ├── manager.py
 │   │
 │   └── utils/
 │       ├── logger.py
-│       ├── helpers.py
-│       ├── validators.py
-│       └── __init__.py
-│
-├── tests/
-│
-├── app/
-│
-├── templates/
-│
-├── static/
+│     
 │
 ├── requirements.txt
 │
@@ -253,12 +242,11 @@ Cleaning operations will include:
 * Magical Kenya scraper
 * Kenya Tourism Board scraper
 * Data collection architecture
+* Manager pipeline
 
 ---
 
 ## In Progress
-
-* Manager pipeline
 * Raw dataset generation
 
 ---
@@ -309,5 +297,7 @@ Additional records will be merged from Magical Kenya before the data cleaning st
 ---
 
 # Author
+Stacy Moraa 
+
 
 Developed as part of a Retrieval-Augmented Generation (RAG) project using FastAPI, OpenStreetMap APIs, and publicly available tourism data to build a hotel discovery and travel planning assistant for Kenya and East Africa.

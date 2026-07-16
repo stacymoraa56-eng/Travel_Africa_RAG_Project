@@ -29,8 +29,9 @@ Travel_Africa_RAG/
 │
 ├── data/
 │   ├── raw/
+|   |    └── hotels_raw.csv
 │   └── cleaned/
-│
+│          └── hotels_cleaned.csv
 ├── data_collection/
 │   ├── api/
 │   │   ├── base_api.py
@@ -42,6 +43,7 @@ Travel_Africa_RAG/
 │   │   └── magical_kenya.py
 │   │
 │   ├── manager.py
+|   ├──hotel_cleaner.py
 │   │
 │   └── utils/
 │       ├── logger.py
@@ -295,6 +297,47 @@ Total target from Overpass:
 Additional records will be merged from Magical Kenya before the data cleaning stage.
 
 ---
+## Recent Updates 
+
+### Hotel Data Cleaning Pipeline
+
+Implemented `hotel_cleaner.py` to improve the quality and consistency of the hotel dataset before embedding generation.
+
+**New functionality:**
+
+- Removed duplicate hotel records.
+- Removed placeholder **"Unknown Hotel"** entries.
+- Filtered out non-hotel businesses (e.g., restaurants and bars).
+- Standardized text formatting across all records.
+- Normalized contact phone numbers.
+- Standardized hotel category labels.
+- Removed placeholder Magical Kenya images.
+- Removed placeholder Kenya Tourism Board (KTB) website links.
+- Preserved hotels from all supported destinations, including Kenya, Uganda, and Tanzania.
+- Exported cleaned dataset to:
+
+```text
+data/cleaned/hotels_clean.csv
+```
+
+HOTEL CLEANING REPORT
+--
+
+|Raw records|109|
+|------|---|
+|Exact duplicates removed:|1|
+|Duplicate hotel names removed:|1|
+|Unknown hotels removed:|1|
+|Non-hotels removed:|7|
+|Out-of-scope removed:| 0|
+|Final cleaned records:| 99|
+---
+
+Placeholder images removed:       49
+Placeholder websites removed:     49
+
+Saved to:
+data/cleaned/hotels_clean.csv
 
 # Author
 Stacy Moraa 

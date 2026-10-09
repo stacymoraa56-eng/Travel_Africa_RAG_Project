@@ -123,6 +123,127 @@ class MagicalKenyaScraper(BaseScraper):
         )
 
         return sorted(links)
+    
+        # ---------------------------------------------------------
+    # Helpers
+    # ---------------------------------------------------------
+
+    def clean_location(self, text):
+        """
+        Remove unwanted breadcrumb values.
+        """
+
+        if not text:
+            return ""
+
+        bad_values = {
+            "Home",
+            "Accommodation",
+            "Listings",
+            "Listing",
+            "Add Listing",
+            "Directory"
+        }
+
+        text = text.strip()
+
+        if text in bad_values:
+            return ""
+
+        return text
+
+
+    def extract_location(self, soup):
+        """
+        Try multiple strategies to determine a hotel's city.
+        """
+
+        # ---------------------------------------------
+        # Strategy 1
+        # Elementor breadcrumbs
+        # ---------------------------------------------
+
+        breadcrumbs = soup.select(
+            ".elementor-breadcrumbs a, nav a"
+        )
+
+        candidates = []
+
+        for crumb in breadcrumbs:
+
+            value = self.clean_location(
+                crumb.get_text(strip=True)
+            )
+
+            if value:
+                candidates.append(value)
+
+        if candidates:
+            return candidates[-1]
+
+        # ---------------------------------------------
+        # Strategy 2
+        # Address blocks
+        # ---------------------------------------------
+
+        address = soup.select_one(
+            ".elementor-icon-list-text"
+        )
+
+        if address:
+
+            text = address.get_text(
+                " ",
+                strip=True
+            )
+
+            parts = [
+                x.strip()
+                for x in text.split(",")
+            ]
+
+            if parts:
+                return parts[-1]
+
+        # ---------------------------------------------
+        # Strategy 3
+        # JSON-LD structured data
+        # ---------------------------------------------
+
+        for script in soup.select(
+            'script[type="application/ld+json"]'
+        ):
+
+            text = script.string
+
+            if not text:
+                continue
+
+            if '"addressLocality"' in text:
+
+                import json
+
+                try:
+
+                    data = json.loads(text)
+
+                    address = data.get(
+                        "address",
+                        {}
+                    )
+
+                    city = address.get(
+                        "addressLocality",
+                        ""
+                    )
+
+                    if city:
+                        return city
+
+                except Exception:
+                    pass
+
+        return ""
 
     # ---------------------------------------------------------
     # Parse Individual Hotel Page
@@ -226,17 +347,7 @@ class MagicalKenyaScraper(BaseScraper):
         # Attempt Location Extraction
         # -------------------------------------------------
 
-        breadcrumbs = soup.select("nav a")
-
-        for crumb in breadcrumbs:
-
-            value = crumb.get_text(strip=True)
-
-            if value not in ["Home", "Accommodation"]:
-
-                hotel["location"] = value
-
-        return hotel
+        hotel["location"] = self.extract_location(soup)
 
     # ---------------------------------------------------------
     # Main Scraper

@@ -1,0 +1,72 @@
+[
+  {
+    "hotel_name": "Park Hyatt Zanzibar",
+    "location": "Zanzibar",
+    "country": "Tanzania",
+    "county_or_region": "Stone Town",
+    "description": "Luxurious beachfront resort in Zanzibar offering oceanfront infinity pool, fine dining, spa, and access to Stone Town.",
+    "price_range": "Luxury ($250-$600)",
+    "rating": 4.8,
+    "amenities": ["Ocean View Pool", "Private Beach", "Spa", "Free WiFi"],
+    "room_types": ["Ocean View Suite", "King Room"],
+    "nearby_attractions": ["Stone Town", "Forodhani Gardens"],
+    "website_url": "https://www.hyatt.com",
+    "source_url": "https://tanzaniatourism.go.tz"
+  },
+  {
+    "hotel_name": "Gran Melia Arusha",
+    "location": "Arusha",
+    "country": "Tanzania",
+    "county_or_region": "Arusha City",
+    "description": "5-star luxury hotel in Arusha, gateway to Serengeti and Ngorongoro, featuring Mount Meru views, infinity pool, and spa.",
+    "price_range": "Luxury ($200-$450)",
+    "rating": 4.7,
+    "amenities": ["Mount Meru Views", "Infinity Pool", "Spa", "Free WiFi"],
+    "room_types": ["Deluxe Room", "Grand Suite"],
+    "nearby_attractions": ["Arusha National Park", "Clock Tower"],
+    "website_url": "https://www.melia.com",
+    "source_url": "https://tanzaniatourism.go.tz"
+  },
+  {
+    "hotel_name": "Kampala Serena Hotel",
+    "location": "Kampala",
+    "country": "Uganda",
+    "county_or_region": "Central Kampala",
+    "description": "5-star luxury resort set in 17 acres of tropical gardens in central Kampala, featuring waterfall pools and Maisha Spa.",
+    "price_range": "Luxury ($200-$450)",
+    "rating": 4.7,
+    "amenities": ["Tropical Pool", "Maisha Spa", "Free WiFi", "Fine Dining"],
+    "room_types": ["Deluxe Room", "Executive Suite"],
+    "nearby_attractions": ["Uganda National Museum", "Independence Monument"],
+    "website_url": "https://www.serenahotels.com",
+    "source_url": "https://visituganda.com"
+  },
+  {
+    "hotel_name": "Speke Resort Munyonyo",
+    "location": "Kampala",
+    "country": "Uganda",
+    "county_or_region": "Lake Victoria Coast",
+    "description": "Lakeside resort situated on the shores of Lake Victoria in Kampala, offering Olympic swimming pool, marina, and equestrian center.",
+    "price_range": "Mid-Range ($120-$280)",
+    "rating": 4.5,
+    "amenities": ["Lake Views", "Equestrian Center", "Olympic Pool", "Free WiFi"],
+    "room_types": ["Standard Lake Room", "Presidential Villa"],
+    "nearby_attractions": ["Lake Victoria", "Munyonyo Commonwealth Centre"],
+    "website_url": "https://www.spekeresort.com",
+    "source_url": "https://visituganda.com"
+  },
+  {
+    "hotel_name": "Hemingways Watamu",
+    "location": "Watamu",
+    "country": "Kenya",
+    "county_or_region": "Kilifi County",
+    "description": "Iconic luxury beach resort on Watamu Marine National Park coastline, featuring white sand beaches, oceanfront dining, and spa.",
+    "price_range": "Luxury ($220-$500)",
+    "rating": 4.8,
+    "amenities": ["Ocean Views", "Spa", "Swimming Pool", "Marine Park Access"],
+    "room_types": ["Ocean View Room", "Penthouse Suite"],
+    "nearby_attractions": ["Watamu Marine Park", "Gede Ruins"],
+    "website_url": "https://www.hemingways-collection.com",
+    "source_url": "https://magicalkenya.com"
+  }
+]

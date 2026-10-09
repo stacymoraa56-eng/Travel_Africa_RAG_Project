@@ -1,10 +1,11 @@
 # 🏖️ East Africa Travel & Hotel RAG Advisor
 
-An AI-powered travel discovery application that helps users find accommodation across **Kenya, Tanzania, and Uganda** using natural-language search.
+# Karibu! East Africa Vacation & Beach Advisor 
 
-The project combines web scraping, data cleaning, geographic enrichment, semantic search, and an interactive dashboard to make accommodation discovery across 16 key destination hubs more accessible.
+![Karibu! East Africa Vacation & Beach Advisor - Landing Page](Travel_Africa_Landing_Page.png)
 
-**Tech Stack:** Python · BeautifulSoup · Pandas · SentenceTransformers · ChromaDB · FastAPI · Streamlit · Folium · Render
+An AI-powered travel advisor helping users explore accommodation options across East Africa.
+
 
 ##  Project Overview
 
@@ -197,6 +198,18 @@ streamlit run ui.py
 ```
 
 Ensure the frontend is configured to communicate with the running FastAPI backend.
+
+
+## Live Demo
+
+[Explore the live application](https://travel-africa-project-rag.onrender.com/)
+
+An AI-powered travel discovery application that helps users find accommodation across **Kenya, Tanzania, and Uganda** using natural-language search.
+
+The project combines web scraping, data cleaning, geographic enrichment, semantic search, and an interactive dashboard to make accommodation discovery across 16 key destination hubs more accessible.
+
+**Tech Stack:** Python · BeautifulSoup · Pandas · SentenceTransformers · ChromaDB · FastAPI · Streamlit · Folium · Render
+
 
 ##  Future Improvements
 

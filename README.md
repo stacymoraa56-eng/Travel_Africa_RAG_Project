@@ -1,346 +1,211 @@
-#  Travel Africa RAG Assistant
+# 🏖️ East Africa Travel & Hotel RAG Advisor
 
-## Project Overview
+An AI-powered travel discovery application that helps users find accommodation across **Kenya, Tanzania, and Uganda** using natural-language search.
 
-Travel Africa RAG Assistant is a Retrieval-Augmented Generation (RAG) application that helps users discover hotels, compare destinations, and plan trips across Kenya and East Africa.
+The project combines web scraping, data cleaning, geographic enrichment, semantic search, and an interactive dashboard to make accommodation discovery across 16 key destination hubs more accessible.
 
-Unlike a traditional chatbot, the assistant answers questions using a curated dataset of real hotels collected from publicly available sources. Retrieved hotel information is supplied to a Large Language Model (LLM), enabling grounded responses with source attribution.
+**Tech Stack:** Python · BeautifulSoup · Pandas · SentenceTransformers · ChromaDB · FastAPI · Streamlit · Folium · Render
 
----
+##  Project Overview
 
-# Project Objectives
+Finding suitable accommodation across East Africa often requires searching multiple websites and comparing fragmented information. This project addresses that challenge by collecting accommodation data from selected travel and tourism websites, transforming it into a structured dataset, and making it searchable through semantic retrieval.
 
-The project aims to:
+The application allows users to explore accommodation using descriptive queries, apply geographic filters, and view matching properties through interactive cards and a map.
 
-* Collect authentic hotel information from publicly available sources.
-* Clean and standardize the collected data.
-* Build a Retrieval-Augmented Generation (RAG) pipeline.
-* Store hotel embeddings in a vector database.
-* Provide hotel recommendations and trip planning through a FastAPI backend.
-* Connect the backend to the provided Travel Africa frontend template.
+### Key Features
 
----
+* Natural-language accommodation search using semantic similarity.
+* Country and destination filtering.
+* Geographic enrichment and interactive map visualization.
+* Structured accommodation data processed through a multi-stage pipeline.
+* FastAPI backend connected to a Streamlit dashboard.
+* Deployment on Render.
 
-# Current Project Structure
+##  From Web Scraping to Deployment
+
+The project was developed through a series of connected data engineering and AI development stages.
+
+### 1. Data Collection and Scraping
+
+Accommodation information was collected from selected East African travel and tourism websites using Python-based web scraping tools, including BeautifulSoup.
+
+The initial collection produced **109 accommodation records**. These records provided the raw input for the downstream data processing pipeline.
+
+### 2. Data Cleaning and Standardization
+
+The raw records were cleaned to improve consistency and prepare them for indexing. The process addressed data quality issues such as inconsistent fields, missing information, and formatting differences.
+
+Following cleaning, the dataset contained **99 accommodation records**, providing a more consistent foundation for enrichment and retrieval.
+
+### 3. Geographic Enrichment and Validation
+
+The cleaned records were enriched with standardized location information, geographic coordinates where available, and contextual descriptions.
+
+Additional validation helped improve location consistency and reduce geographic ambiguity across destinations, including locations with similar names.
+
+The resulting enriched dataset was prepared for semantic indexing.
+
+### 4. Embeddings and Vector Database
+
+The enriched accommodation descriptions were converted into numerical vector embeddings using SentenceTransformers and the `all-MiniLM-L6-v2` model.
+
+The embeddings and associated accommodation information were indexed in ChromaDB, enabling semantic similarity searches against the collected data.
+
+### 5. Retrieval API and Interactive Dashboard
+
+A FastAPI backend handles search requests, queries the vector database, and applies supported country and location filters.
+
+A Streamlit frontend provides the user-facing experience, including accommodation cards, destination filters, and interactive maps built with Folium.
+
+### 6. Deployment
+
+The application is configured for deployment on Render, connecting the frontend and backend to make the accommodation discovery experience accessible through the web.
+
+The deployed services require the correct API configuration and access to a valid ChromaDB index.
+
+##  Architecture
+
+```text
+Travel & Tourism Websites
+           |
+           v
+    Web Scraping
+           |
+           v
+   109 Raw Records
+           |
+           v
+ Data Cleaning & Standardization
+           |
+           v
+    99 Cleaned Records
+           |
+           v
+ Geographic Enrichment & Validation
+           |
+           v
+    Enriched Dataset
+           |
+           v
+ SentenceTransformers Embeddings
+           |
+           v
+        ChromaDB
+           |
+           v
+       FastAPI API
+           |
+           v
+     Streamlit Dashboard
+      + Interactive Map
+           |
+           v
+      Render Deployment
+```
+
+**RAG implementation note:** The current architecture provides the data preparation and semantic retrieval components used in RAG applications. A complete generative RAG workflow additionally passes retrieved context to a language model to generate grounded natural-language responses.
+
+##  Technology Stack
+
+| Technology               | Purpose                               |
+| ------------------------ | ------------------------------------- |
+| Python, BeautifulSoup    | Web scraping and data collection      |
+| Pandas, Regex            | Data cleaning and standardization     |
+| SentenceTransformers     | Text embeddings                       |
+| ChromaDB                 | Vector storage and semantic retrieval |
+| FastAPI, Uvicorn         | Backend API                           |
+| Pydantic                 | Request and data validation           |
+| Streamlit                | Interactive user interface            |
+| Folium, Streamlit-Folium | Geographic visualization              |
+| Render                   | Application deployment                |
+
+##  Project Structure
 
 ```text
 Travel_Africa_RAG/
-
-│
+├── app.py                    # FastAPI backend and retrieval
+├── ui.py                     # Streamlit dashboard
+├── enrich_dataset.py         # Geographic and contextual enrichment
+├── ingest_chroma.py          # Embedding generation and indexing
+├── requirements.txt          # Python dependencies
 ├── data/
-│   ├── raw/
-|   |    └── hotels_raw.csv
-│   └── cleaned/
-│          └── hotels_cleaned.csv
-├── data_collection/
-│   ├── api/
-│   │   ├── base_api.py
-│   │   ├── overpass_api.py
-│   │   └── nominatim_api.py
-│   │
-│   ├── html/
-│   │   ├── base_scraper.py
-│   │   └── magical_kenya.py
-│   │
-│   ├── manager.py
-|   ├──hotel_cleaner.py
-│   │
-│   └── utils/
-│       ├── logger.py
-│     
-│
-├── requirements.txt
-│
-└── README.md
+│   ├── cleaned_hotels.json   # 99 cleaned records
+│   └── enriched_hotels.json  # Enriched accommodation dataset
+└── data_collection/
+    ├── scraper.py            # Scraper orchestration
+    ├── cleaner.py            # Data cleaning
+    └── html/                 # Site-specific scraping modules
 ```
 
----
+##  Running Locally
 
-# Technologies Used
+**Prerequisites:** Python and Git.
 
-## Backend
+### 1. Clone the repository
 
-* Python 3.12
-* FastAPI
-* Uvicorn
-
-## Data Collection
-
-* Requests
-* BeautifulSoup4
-* lxml
-* OpenStreetMap Overpass API
-* OpenStreetMap Nominatim API
-
-## Data Processing
-
-* Pandas
-
-## Planned RAG Components
-
-* LangChain
-* ChromaDB
-* OpenAI Embeddings
-* OpenAI Chat Model
-
----
-
-# Data Sources
-
-The project uses publicly available data only.
-
-## Active Sources
-
-### OpenStreetMap Overpass API
-
-Purpose:
-
-* Collect hotel names
-* Geographic coordinates
-* Websites
-* Contact information
-* Hotel category
-
-Website
-
-https://overpass-api.de/
-
----
-
-### OpenStreetMap Nominatim API
-
-Purpose:
-
-* Reverse geocode hotel coordinates
-* County / Region
-* Country
-* Formatted Address
-
-Website
-
-https://nominatim.openstreetmap.org/
-
----
-
-### Magical Kenya
-
-Purpose:
-
-* Hotel descriptions
-* Destination information
-* Tourism-approved accommodation
-* Images
-* Nearby attractions
-
-Website
-
-https://magicalkenya.com/
-
----
-
-## Evaluated Sources
-
-### Kenya Tourism Board
-
-A scraper was developed for the Kenya Tourism Board website. However, due to the current website structure, no consistent hotel listing data could be extracted automatically. The scraper remains available for future updates but is not part of the primary data collection pipeline.
-
----
-
-### Tourism Regulatory Authority (TRA)
-
-The Tourism Regulatory Authority website was evaluated as a potential source of hotel information.
-
-Although publicly accessible, it primarily provides regulatory information rather than structured hotel listings suitable for Retrieval-Augmented Generation.
-
-For this reason, it is documented but excluded from the production data pipeline.
-
----
-
-# Data Collection Pipeline
-
-```text
-Overpass API
-      │
-      ▼
-Hotel Records
-      │
-      ▼
-Magical Kenya
-      │
-      ▼
-Merge Records
-      │
-      ▼
-Nominatim Enrichment
-      │
-      ▼
-Raw Dataset
+```bash
+git clone YOUR_REPOSITORY_URL
+cd Travel_Africa_RAG
 ```
 
----
+### 2. Create a virtual environment and install dependencies
 
-# Ethical Scraping
-
-All scraping follows responsible data collection practices.
-
-Measures implemented include:
-
-* Random browser User-Agent rotation.
-* Approximately five-second delay between requests.
-* Request logging.
-* Graceful error handling.
-* Publicly available information only.
-* Source URLs retained for traceability.
-
----
-
-# Expected Dataset
-
-## Raw Dataset
-
-Target:
-
-Approximately **130 hotel records**
-
-Characteristics:
-
-* Duplicate hotels
-* Missing descriptions
-* Missing prices
-* Inconsistent county names
-* Different website formats
-
----
-
-## Clean Dataset
-
-Target:
-
-Approximately **110 hotel records**
-
-Cleaning operations will include:
-
-* Removing duplicate hotels.
-* Standardizing county names.
-* Standardizing location names.
-* Removing invalid records.
-* Filling missing values where possible.
-* Preparing hotel descriptions for embedding.
-
----
-
-# Current Progress
-
-## Completed
-
-* Project structure
-* Python virtual environment
-* Dependency management
-* Logging utility
-* Base HTML scraper
-* Base API client
-* Overpass API integration
-* Nominatim reverse geocoding
-* Magical Kenya scraper
-* Kenya Tourism Board scraper
-* Data collection architecture
-* Manager pipeline
-
----
-
-## In Progress
-* Raw dataset generation
-
----
-
-## Upcoming
-
-* Data cleaning
-* Text chunk generation
-* Embedding generation
-* ChromaDB vector database
-* FastAPI endpoints
-* Frontend integration
-* Travel itinerary generation
-* Source attribution
-* Final documentation
-
----
-
-# Hotel Distribution
-
-The Overpass API currently limits the number of hotels collected from each destination to create a balanced dataset across East Africa.
-
-| Destination   | Target Hotels |
-| ------------- | ------------: |
-| Nairobi       |             7 |
-| Mombasa       |             8 |
-| Diani         |             6 |
-| Naivasha      |             6 |
-| Nakuru        |             5 |
-| Maasai Mara   |             6 |
-| Amboseli      |             5 |
-| Watamu        |             5 |
-| Malindi       |             5 |
-| Kisumu        |             5 |
-| Nanyuki       |             5 |
-| Lamu          |             5 |
-| Zanzibar      |            10 |
-| Arusha        |            10 |
-| Kampala       |            10 |
-| Dar es Salaam |            10 |
-
-Total target from Overpass:
-
-**108 hotels**
-
-Additional records will be merged from Magical Kenya before the data cleaning stage.
-
----
-## Recent Updates 
-
-### Hotel Data Cleaning Pipeline
-
-Implemented `hotel_cleaner.py` to improve the quality and consistency of the hotel dataset before embedding generation.
-
-**New functionality:**
-
-- Removed duplicate hotel records.
-- Removed placeholder **"Unknown Hotel"** entries.
-- Filtered out non-hotel businesses (e.g., restaurants and bars).
-- Standardized text formatting across all records.
-- Normalized contact phone numbers.
-- Standardized hotel category labels.
-- Removed placeholder Magical Kenya images.
-- Removed placeholder Kenya Tourism Board (KTB) website links.
-- Preserved hotels from all supported destinations, including Kenya, Uganda, and Tanzania.
-- Exported cleaned dataset to:
-
-```text
-data/cleaned/hotels_clean.csv
+```bash
+python -m venv .venv
 ```
 
-HOTEL CLEANING REPORT
---
+On Windows:
 
-|Raw records|109|
-|------|---|
-|Exact duplicates removed:|1|
-|Duplicate hotel names removed:|1|
-|Unknown hotels removed:|1|
-|Non-hotels removed:|7|
-|Out-of-scope removed:| 0|
-|Final cleaned records:| 99|
----
+```bash
+.venv\Scripts\activate
+```
 
-Placeholder images removed:       49
-Placeholder websites removed:     49
+On macOS/Linux:
 
-Saved to:
-data/cleaned/hotels_clean.csv
+```bash
+source .venv/bin/activate
+```
 
-# Author
-Stacy Moraa 
+Install the required packages:
 
+```bash
+pip install -r requirements.txt
+```
 
-Developed as part of a Retrieval-Augmented Generation (RAG) project using FastAPI, OpenStreetMap APIs, and publicly available tourism data to build a hotel discovery and travel planning assistant for Kenya and East Africa.
+### 3. Build the vector index
+
+Ensure the enriched dataset is available, then run:
+
+```bash
+python ingest_chroma.py
+```
+
+### 4. Start the backend
+
+```bash
+uvicorn app:app --reload --port 8000
+```
+
+API documentation: `http://localhost:8000/docs`
+
+### 5. Start the frontend
+
+In a separate terminal:
+
+```bash
+streamlit run ui.py
+```
+
+Ensure the frontend is configured to communicate with the running FastAPI backend.
+
+##  Future Improvements
+
+* Integrate a generative language model for complete RAG-based responses.
+* Automate data collection, validation, and index updates.
+* Improve retrieval ranking and accommodation comparisons.
+* Expand accommodation coverage across additional East African destinations.
+* Introduce stronger retrieval evaluation and data-quality monitoring.
+
+##  Project Focus
+
+This project demonstrates the integration of **web scraping, data engineering, semantic search, vector databases, API development, interactive visualization, and cloud deployment** into a practical AI-powered travel discovery application.
